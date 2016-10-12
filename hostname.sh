@@ -1,6 +1,6 @@
 #!/bin/bash
 # hostname.sh
-# Script d'automatització del canvi de nom d'equip a Linkat
+# Script d automatització del canvi de nom d'equip a Linkat
 # Copyright 2016 JBA
 #
 #
@@ -24,9 +24,9 @@ if [ $hostname_check == $new_hostname_check ]; then
 echo -e "\nEl nou nom que heu especificat és el mateix que l'actual.\nNo s'ha fet cap canvi.\n\n"
 else
 # Si el nou nom és diferent, modifiquem els fitxers
-sed -i 's/'$hostname'/'$new_hostname'/g' /etc/hostname
-sed -i 's/'$hostname'/'$new_hostname'/g' /etc/hosts
-hostname $new_hostname
+sudo sed -i 's/'$hostname'/'$new_hostname'/g' /etc/hostname
+sudo sed -i 's/'$hostname'/'$new_hostname'/g' /etc/hosts
+sudo hostname $new_hostname
 # Avís de confirmació dels canvis per pantalla
 clear
 echo -e "**** Canvi del nom d'equip ****\n"
@@ -46,7 +46,7 @@ i=i+1
 let sec-="1"
 sleep 1
 if [ $sec == 0 ]; then
-reboot
+sudo reboot
 fi
 done
 fi

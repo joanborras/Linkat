@@ -1,6 +1,7 @@
 #!/bin/bash
 #autologin.sh
 #Script per automatitzar la selecció d'inici de sessió automàtic a la Linkat lleugera 14.04
+#Versió 1.0
 #Copyright 2016 JBA
 #
 #
@@ -55,19 +56,27 @@ until [ "$user_assigned" = "$user_assigned_check" ]; do
       echo "Si us plau, entreu un nom d'usuari correcte:";
    fi;
 done;
+# Comprovem que existeix el fitxer de modificació de la configuració per defecte 
+if [ -a /usr/share/lightdm/lightdm.conf.d/20-lubuntu.conf ]; then
+touch /usr/share/lightdm/lightdm.conf.d/20-lubuntu.conf
+fi;
+# Comprovem que existeix el fitxer de modificació de la configuració personal
+if [ ! -a /etc/lightdm/lightdm.conf.d/50-myconfig.conf ]; then
+touch /etc/lightdm/lightdm.conf.d/50-myconfig.conf && chmod 755 /etc/lightdm/lightdm.conf.d/50-myconfig.conf;
+fi;
 #Creem la linia per afegir al fitxer de configuració
 autologin_user="autologin-user="$user_assigned;
 #Afegim la linia autologin al fitxer de configuració
 #Comprovem la linia actual
-autologin_check=`grep $autologin-user /etc/lightdm/lightdm.conf.d/20-lubuntu.conf`;
+autologin_check=`grep $autologin-user /etc/lightdm/lightdm.conf.d/50-myconfig.conf`;
 #autologin_check=`grep $autologin-user /home/joan/20-lubuntu.conf`;
 #Si el usuari que acabem de entrar es el mateix que ja apareix, no fem cap canvi
 if [ "$autologin_user" = "$autologin_check" ]; then
    echo "No s'han fet canvis en la selecció d'inici de sessió d'usuari per defecte.";
 #I sino es el mateix substituim la linia de autologin
 else
-   sed -i 's/'$autologin_check'/'$autologin_user'/g' '/etc/lightdm/lightdm.conf.d/20-lubuntu.conf';
-   echo "Heu triar iniciar el sistema amb el usuari "$user_assigned" per defecte.";
+   sudo sed -i 's/'$autologin_check'/'$autologin_user'/g' '/etc/lightdm/lightdm.conf.d/50-myconfig.conf';
+   echo -e "Heu triat iniciar el sistema amb el usuari \e[1m\e[32m"$user_assigned"\e[0m\e[0m per defecte.";
    echo ;
 fi;
 #
