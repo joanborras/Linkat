@@ -1,18 +1,17 @@
 #!/bin/bash
 #
 #
-#############################################################
-#															#
-#	configuracio.sh					     					#		
-#	Script de configuració inicial de Linkat 16.04       	#
-#	per la creació d'usuaris i perfils i instal·lació		#
-#	de programari bàsic								  		#
-#                                                           #
-#	Autor: Joan Borràs       	                            # 
-#	Versió: 1.0                 	                        #
-#	Data: Desembre 2017										#
-#                                                           #
-#############################################################
+##############################################################
+#							     #
+#	configuracio.sh					     #		
+#	Script de configuració inicial de Linkat 16.04       #
+#	per la creació d'usuaris i perfils, 		     #
+#                                                            #
+#	Autor: Joan Borràs                                   # 
+#	Versió: 1.0                                          #
+#	Data: Desembre 2017	                             #
+#                                                            #
+##############################################################
 #
 #
 ##############################################################
@@ -29,6 +28,12 @@ clear 2>/dev/null
 #
 ##############################################################
 # Actualització del sistema
+sudo -S pkill dpkg; sudo -S dpkg --configure -a; sudo -S apt-get install -f | \
+	zenity --progress \
+	--title "Configuració inicial de Linkat 16.04" \
+	--text "S'està preparant el sistema.\nUn moment, si us plau..." \
+	--width=400 --no-cancel --auto-close --pulsate \
+	2>/dev/null ;
 sudo -S apt-get update 2>/dev/null | \
 	zenity --progress \
 	--title "Configuració inicial de Linkat 16.04" \
@@ -278,7 +283,7 @@ resposta=$(zenity --list --checklist \
     		{  
     		# Mostrem avís que l'usuari ja existeix  
     		zenity --question \
-			--text "L'usuari super ja existeix.\nVoleu tornar al seu estat inicial?\nTingueu en compte que la configuració actual es perdrà." \
+			--text "L'usuari <b>super</b> ja existeix.\nVoleu tornar al seu estat inicial?\nTingueu en compte que la configuració actual es perdrà." \
 			--title "Creació de perfils d'usuari" \
 			--cancel-label="No" --ok-label="Sí" width=350 2>/dev/null;
 		reconfigsuper=$?
@@ -291,7 +296,7 @@ resposta=$(zenity --list --checklist \
 		sudo -S userdel -rf "super" 2>/dev/null;
 		# i demanem la contrasenya
 		superpwd=$(zenity --entry \
-			--text "Introduïu la contrasenya per a l'usuari super" \
+			--text "Introduïu la contrasenya per a l'usuari <b>super</b>" \
 			--title "Creació de perfils d'usuari" \
 			--hide-text \
 			2>/dev/null);
@@ -307,8 +312,9 @@ resposta=$(zenity --list --checklist \
       				# Mostrem missatge de confirmació de creació correcta de l'usuari
       				zenity --info \
 					--title "Creació de perfils d'usuari" \
-					--text "L'usuari super ha estat creat satisfactòriament." \
+					--text "L'usuari <b>super</b> ha estat creat satisfactòriament." \
 					2>/dev/null;
+				super_created="super";
       				}  
     			else #Si la contrasenya dóna un error
       				{
@@ -324,7 +330,7 @@ resposta=$(zenity --list --checklist \
    			{
     			# Mostrem error desconegut
     			zenity --error \
-				--text "S'ha produit un error en crear l'usuari super" \
+				--text "S'ha produit un error en crear l'usuari <b>super</b>" \
 				--title "Creació de perfils d'usuari" \
 				2>/dev/null ;    			
 			}
@@ -356,7 +362,7 @@ fi;
     		{  
     		# Mostrem avís que l'usuari ja existeix  
     		zenity --question \
-			--text "L'usuari prof ja existeix.\nVoleu tornar al seu estat inicial?\nTingueu en compte que la configuració actual es perdrà." \
+			--text "L'usuari <b>prof</b> ja existeix.\nVoleu tornar al seu estat inicial?\nTingueu en compte que la configuració actual es perdrà." \
 			--title "Creació de perfils d'usuari" \
 			--cancel-label="No" --ok-label="Sí" width=350 2>/dev/null;
 		reconfigprof=$?
@@ -369,7 +375,7 @@ fi;
 		sudo -S userdel -rf "prof" 2>/dev/null;
 		# i demanem la contrasenya
 		profpwd=$(zenity --entry \
-			--text "Introduïu la contrasenya per a l'usuari prof" \
+			--text "Introduïu la contrasenya per a l'usuari prof</b>" \
 			--title "Creació de perfils d'usuari" \
 			--hide-text \
 			2>/dev/null);
@@ -384,8 +390,9 @@ fi;
       				# Mostrem missatge de confirmació de creació correcta de l'usuari
       				zenity --info \
 					--title "Creació de perfils d'usuari" \
-					--text "L'usuari prof ha estat creat satisfactòriament." \
+					--text "L'usuari <b>prof</b> ha estat creat satisfactòriament." \
 					2>/dev/null;
+				prof_created="prof";
       				}  
     			else #Si la contrasenya dóna un error
       				{
@@ -401,7 +408,7 @@ fi;
    			{
     			# Mostrem error desconegut
     			zenity --error \
-				--text "S'ha produit un error en crear l'usuari prof" \
+				--text "S'ha produit un error en crear l'usuari <b>prof</b>" \
 				--title "Creació de perfils d'usuari" \
 				2>/dev/null ;    			
 			}
@@ -433,7 +440,7 @@ fi;
     		{  
     		# Mostrem avís que l'usuari ja existeix  
     		zenity --question \
-			--text "L'usuari argo ja existeix.\nVoleu tornar al seu estat inicial?\nTingueu en compte que la configuració actual es perdrà." \
+			--text "L'usuari <b>argo</b> ja existeix.\nVoleu tornar al seu estat inicial?\nTingueu en compte que la configuració actual es perdrà." \
 			--title "Creació de perfils d'usuari" \
 			--cancel-label="No" --ok-label="Sí" width=350 2>/dev/null;
 		reconfigargo=$?
@@ -453,14 +460,15 @@ fi;
     			# Mostrem missatge de confirmació de creació correcta de l'usuari
     			zenity --info \
 				--title "Creació de perfils d'usuari" \
-				--text "L'usuari argo ha estat creat satisfactòriament." \
+				--text "L'usuari <b>argo</b> ha estat creat satisfactòriament." \
 				2>/dev/null;
+			argo_created="argo";
     			}
   		else #Si la creació d'usuari mostra algun error
     			{
     			# Mostrem error desconegut
     			zenity --error \
-				--text "S'ha produit un error en crear l'usuari argo" \
+				--text "S'ha produit un error en crear l'usuari <b>argo</b>" \
 				--title "Creació de perfils d'usuari" \
 				2>/dev/null;
     			}
@@ -492,7 +500,7 @@ fi;
     		{  
     		# Mostrem avís que l'usuari ja existeix  
     		zenity --question \
-			--text "El perfil infantil ja existeix.\nVoleu tornar al seu estat inicial?\nTingueu en compte que la configuració actual es perdrà." \
+			--text "El perfil <b>infantil</b> ja existeix.\nVoleu tornar al seu estat inicial?\nTingueu en compte que la configuració actual es perdrà." \
 			--title "Creació de perfils d'usuari" \
 			--cancel-label="No" --ok-label="Sí" width=350 2>/dev/null;
 		reconfiginfantil=$?
@@ -514,7 +522,7 @@ fi;
 				2>/dev/null ;
 		sudo -S apt-get install linkat-perfil-infantil -y | \
 			zenity --progress \
-				--text "S'està instal·lant i configurant el perfil d'usuari infantil. \nAixò pot trigar una estona.\nEspereu-vos..." \
+				--text "S'està instal·lant i configurant el perfil d'usuari <b>infantil</b>. \nAixò pot trigar una estona.\nEspereu-vos..." \
 				--title "Creació de perfils d'usuari" \
 				--width=400 --no-cancel --auto-close --pulsate \
 				2>/dev/null;
@@ -523,14 +531,14 @@ fi;
     			# Mostrem missatge de confirmació de creació correcta de l'usuari
     			zenity --info \
 				--title "Creació de perfils d'usuari" \
-				--text "El perfil d'usuari infantil s'ha instal·lat satisfactòriament." \
+				--text "El perfil d'usuari <b>infantil</b> s'ha instal·lat satisfactòriament." \
 				2>/dev/null;
     			}
   		else #Si la creació d'usuari mostra algun error
     			{
     			# Mostrem error desconegut
     			zenity --error \
-				--text "S'ha produit un error en instal·lar el perfil d'usuari infantil" \
+				--text "S'ha produit un error en instal·lar el perfil d'usuari <b>infantil</b>" \
 				--title "Creació de perfils d'usuari" 
 				2>/dev/null ;    			
 			}
@@ -554,7 +562,7 @@ if [[ $resposta == *primaria* ]] ; then
     		{  
     		# Mostrem avís que l'usuari ja existeix  
     		zenity --warning \
-			--text "El perfil d'usuari primaria ja existeix." \
+			--text "El perfil d'usuari <b>primaria</b> ja existeix." \
 			--title "Creació de perfils d'usuari" \
 			2>/dev/null;
     		}
@@ -570,7 +578,7 @@ if [[ $resposta == *primaria* ]] ; then
 				2>/dev/null ;
 		sudo -S apt-get install linkat-perfil-primaria -y | \
 			zenity --progress \
-				--text "S'està instal·lant i configurant el perfil d'usuari infantil. \nAixò pot trigar una estona.\nEspereu-vos..." \
+				--text "S'està instal·lant i configurant el perfil d'usuari <b>primaria</b>. \nAixò pot trigar una estona.\nEspereu-vos..." \
 				--title "Creació de perfils d'usuari" \
 				--width=400 --no-cancel --auto-close --pulsate \
 				2>/dev/null;
@@ -579,14 +587,14 @@ if [[ $resposta == *primaria* ]] ; then
     			# Mostrem missatge de confirmació de creació correcta de l'usuari
     			zenity --info \
 				--title "Creació de perfils d'usuari" \
-				--text "El perfil d'usuari primaria s'ha instal·lat satisfactòriament." \
+				--text "El perfil d'usuari <b>primaria</b> s'ha instal·lat satisfactòriament." \
 				2>/dev/null;
     			}
   		else #Si la creació d'usuari mostra algun error
     			{
     			# Mostrem error desconegut
     			zenity --error \
-				--text "S'ha produit un error en instal·lar el perfil d'usuari primaria" \
+				--text "S'ha produit un error en instal·lar el perfil d'usuari <b>primaria</b>" \
 				--title "Creació de perfils d'usuari" \
 				2>/dev/null;
     			}
@@ -610,7 +618,7 @@ if [[ $resposta == *secundaria* ]] ; then
     		{  
     		# Mostrem avís que l'usuari ja existeix  
     		zenity --warning \
-			--text "El perfil d'usuari secundaria ja existeix." \
+			--text "El perfil d'usuari <b>secundaria</b> ja existeix." \
 			--title "Creació de perfils d'usuari" \
 			2>/dev/null;
     		}
@@ -626,7 +634,7 @@ if [[ $resposta == *secundaria* ]] ; then
 			2>/dev/null ;
 		sudo -S apt-get install linkat-perfil-secundaria -y | \
 			zenity --progress \
-				--text "S'està instal·lant i configurant el perfil d'usuari secundaria. \nAixò pot trigar una estona.\nEspereu-vos..." \
+				--text "S'està instal·lant i configurant el perfil d'usuari <b>secundaria</b>. \nAixò pot trigar una estona.\nEspereu-vos..." \
 				--title "Creació de perfils d'usuari" \
 				--width=400 \
 				--no-cancel --auto-close --pulsate \
@@ -636,14 +644,14 @@ if [[ $resposta == *secundaria* ]] ; then
     			# Mostrem missatge de confirmació de creació correcta de l'usuari
     			zenity --info \
 				--title "Creació de perfils d'usuari" \	
-				--text "El perfil d'usuari secundaria s'ha instal·lat satisfactòriament." \
+				--text "El perfil d'usuari <b>secundaria</b> s'ha instal·lat satisfactòriament." \
 				2>/dev/null;
     			}
   		else #Si la creació d'usuari mostra algun error
     			{
     			# Mostrem error desconegut
     			zenity --error \
-				--text "S'ha produit un error en instal·lar el perfil d'usuari secundaria" \
+				--text "S'ha produit un error en instal·lar el perfil d'usuari <b>secundaria</b>" \
 				--title "Creació de perfils d'usuari" \
 				2>/dev/null;
     			}
@@ -666,7 +674,7 @@ if [[ $resposta == *blau* ]] ; then
     		{  
     		# Mostrem avís que l'usuari ja existeix  
     		zenity --warning \
-			--text "El perfil d'usuari blau ja existeix." \
+			--text "El perfil d'usuari <b>blau</b> ja existeix." \
 			--title "Creació de perfils d'usuari" \
 			2>/dev/null;
     		}
@@ -689,7 +697,7 @@ if [[ $resposta == *blau* ]] ; then
 				2>/dev/null ;
 		sudo -S apt-get install linkat-perfil-blau -y | \
 			zenity --progress \
-				--text "S'està instal·lant i configurant el perfil d'usuari blau. \nAixò pot trigar una estona.\nEspereu-vos..." --title "Creació de perfils d'usuari" \
+				--text "S'està instal·lant i configurant el perfil d'usuari <b>blau</b>. \nAixò pot trigar una estona.\nEspereu-vos..." --title "Creació de perfils d'usuari" \
 				--width=400 --no-cancel --auto-close --pulsate \
 				2>/dev/null;
 	  	if [ $? -eq 0 ]; then  #Si la creació d'usuari no mostra cap error
@@ -697,14 +705,14 @@ if [[ $resposta == *blau* ]] ; then
 	    		# Mostrem missatge de confirmació de creació correcta de l'usuari
 	    		zenity --info \
 				--title "Creació de perfils d'usuari" \
-				--text "El perfil d'usuari blau s'ha instal·lat satisfactòriament." \
+				--text "El perfil d'usuari <b>blau</b> s'ha instal·lat satisfactòriament." \
 				2>/dev/null;
 	    		}
 	  	else #Si la creació d'usuari mostra algun error
 	    		{
 	    		# Mostrem error desconegut
 	    		zenity --error \
-				--text "S'ha produit un error en instal·lar el perfil d'usuari blau" \
+				--text "S'ha produit un error en instal·lar el perfil d'usuari <b>blau</b>" \
 				--title "Creació de perfils d'usuari" \
 				2>/dev/null;
 	    		}
@@ -727,7 +735,7 @@ if [[ $resposta == *web* ]] ; then
     		{  
     		# Mostrem avís que l'usuari ja existeix  
     		zenity --warning \
-			--text "El perfil d'usuari web ja existeix." \
+			--text "El perfil d'usuari <b>web</b> ja existeix." \
 			--title "Creació de perfils d'usuari" \
 			2>/dev/null;
     		}
@@ -750,7 +758,7 @@ if [[ $resposta == *web* ]] ; then
 				2>/dev/null ;
 		sudo -S apt-get install linkat-perfil-web -y | \
 			zenity --progress \
-				--text "S'està instal·lant i configurant el perfil d'usuari web. \nAixò pot trigar una estona.\nEspereu-vos..." \
+				--text "S'està instal·lant i configurant el perfil d'usuari <b>web</b>. \nAixò pot trigar una estona.\nEspereu-vos..." \
 				--title "Creació de perfils d'usuari" \
 				--width=400 --no-cancel --auto-close --pulsate \
 				2>/dev/null;
@@ -759,14 +767,14 @@ if [[ $resposta == *web* ]] ; then
     			# Mostrem missatge de confirmació de creació correcta de l'usuari
     			zenity --info \
 				--title "Creació de perfils d'usuari" \
-				--text "El perfil d'usuari web s'ha instal·lat satisfactòriament." \ 
+				--text "El perfil d'usuari <b>web</b> s'ha instal·lat satisfactòriament." \ 
 				2>/dev/null;
     			}
   		else #Si la creació d'usuari mostra algun error
     			{
     			# Mostrem error desconegut
     			zenity --error \
-				--text "S'ha produit un error en instal·lar el perfil d'usuari web" \
+				--text "S'ha produit un error en instal·lar el perfil d'usuari <b>web</b>" \
 				--title "Creació de perfils d'usuari" \
 				2>/dev/null;
     			}
@@ -790,7 +798,7 @@ if [[ $resposta == *musica* ]] ; then
  		{  
     		# Mostrem avís que l'usuari ja existeix  
     		zenity --warning \
-			--text "El perfil d'usuari musica ja existeix." \
+			--text "El perfil d'usuari <b>musica</b> ja existeix." \
 			--title "Creació de perfils d'usuari" \
 			2>/dev/null;
     		}
@@ -806,7 +814,7 @@ if [[ $resposta == *musica* ]] ; then
 				2>/dev/null ;
 		sudo -S apt-get install linkat-perfil-musica -y | \
 			zenity --progress \
-				--text "S'està instal·lant i configurant el perfil d'usuari musica. \nAixò pot trigar una estona.\nEspereu-vos..." \
+				--text "S'està instal·lant i configurant el perfil d'usuari <b>musica</b>. \nAixò pot trigar una estona.\nEspereu-vos..." \
 				--title "Creació de perfils d'usuari" \
 				--width=400 --no-cancel --auto-close --pulsate \
 				2>/dev/null;
@@ -815,14 +823,14 @@ if [[ $resposta == *musica* ]] ; then
 		    	# Mostrem missatge de confirmació de creació correcta de l'usuari
 		    	zenity --info \
 				--title "Creació de perfils d'usuari" \
-				--text "El perfil d'usuari musica s'ha instal·lat satisfactòriament." \
+				--text "El perfil d'usuari <b>musica</b> s'ha instal·lat satisfactòriament." \
 				2>/dev/null;
 		    	}
 		else #Si la creació d'usuari mostra algun error
 		    	{
 		    	# Mostrem error desconegut
 		    	zenity --error \
-				--text "S'ha produit un error en instal·lar el perfil d'usuari musica" \
+				--text "S'ha produit un error en instal·lar el perfil d'usuari <b>musica</b>" \
 				--title "Creació de perfils d'usuari" \
 				2>/dev/null;
 		    	}
@@ -846,7 +854,7 @@ if [[ $resposta == *robotica* ]] ; then
     		{  
     		# Mostrem avís que l'usuari ja existeix  
     		zenity --warning \
-			--text "El perfil d'usuari robotica ja existeix." \
+			--text "El perfil d'usuari <b>robotica</b> ja existeix." \
 			--title "Creació de perfils d'usuari" \
 			2>/dev/null;
     		}
@@ -862,7 +870,7 @@ if [[ $resposta == *robotica* ]] ; then
 				2>/dev/null ;
 		sudo -S apt-get install linkat-perfil-robotica -y | \
 			zenity --progress \
-				--text "S'està instal·lant i configurant el perfil d'usuari robotica. \nAixò pot trigar una estona.\nEspereu-vos..." \
+				--text "S'està instal·lant i configurant el perfil d'usuari <b>robotica</b>. \nAixò pot trigar una estona.\nEspereu-vos..." \
 				--title "Creació de perfils d'usuari" \
 				--width=400 --no-cancel --auto-close --pulsate \
 				2>/dev/null;
@@ -871,14 +879,14 @@ if [[ $resposta == *robotica* ]] ; then
 		    	# Mostrem missatge de confirmació de creació correcta de l'usuari
 		    	zenity --info \
 				--title "Creació de perfils d'usuari" \
-				--text "El perfil d'usuari robotica s'ha instal·lat satisfactòriament." \
+				--text "El perfil d'usuari <b>robotica</b> s'ha instal·lat satisfactòriament." \
 				2>/dev/null;
 		    	}
 		else #Si la creació d'usuari mostra algun error
 		    	{
 		    	# Mostrem error desconegut
 		    	zenity --error \
-				--text "S'ha produit un error en instal·lar el perfil d'usuari robotica" \
+				--text "S'ha produit un error en instal·lar el perfil d'usuari <b>robotica</b>" \
 				--title "Creació de perfils d'usuari" \
 				2>/dev/null;
 		    	}
@@ -902,7 +910,7 @@ if [[ $resposta == *diversitat* ]] ; then
     		{  
     		# Mostrem avís que l'usuari ja existeix  
     		zenity --warning \
-			--text "El perfil d'usuari diversitat ja existeix." \
+			--text "El perfil d'usuari <b>diversitat</b> ja existeix." \
 			--title "Creació de perfils d'usuari" \
 			2>/dev/null;
     		}
@@ -918,7 +926,7 @@ if [[ $resposta == *diversitat* ]] ; then
 				2>/dev/null ;
 		sudo -S apt-get install linkat-perfil-diversitat -y | \
 			zenity --progress \
-				--text "S'està instal·lant i configurant el perfil d'usuari diversitat. \nAixò pot trigar una estona.\nEspereu-vos..." \
+				--text "S'està instal·lant i configurant el perfil d'usuari <b>diversitat</b>. \nAixò pot trigar una estona.\nEspereu-vos..." \
 				--title "Creació de perfils d'usuari" \
 				--width=400 --no-cancel --auto-close --pulsate \
 				2>/dev/null;
@@ -927,14 +935,14 @@ if [[ $resposta == *diversitat* ]] ; then
     			# Mostrem missatge de confirmació de creació correcta de l'usuari
     			zenity --info \
 				--title "Creació de perfils d'usuari" \
-				--text "El perfil d'usuari diversitat s'ha instal·lat satisfactòriament." \
+				--text "El perfil d'usuari <b>diversitat</b> s'ha instal·lat satisfactòriament." \
 				2>/dev/null;
     			}
   		else #Si la creació d'usuari mostra algun error
     			{
     			# Mostrem error desconegut
     			zenity --error \
-				--text "S'ha produit un error en instal·lar el perfil d'usuari diversitat" \
+				--text "S'ha produit un error en instal·lar el perfil d'usuari <b>diversitat</b>" \
 				--title "Creació de perfils d'usuari" \
 				2>/dev/null;
     			}
@@ -958,7 +966,7 @@ if [[ $resposta == *adults* ]] ; then
     		{  
     		# Mostrem avís que l'usuari ja existeix  
     		zenity --warning \
-			--text "El perfil d'usuari adults ja existeix." \
+			--text "El perfil d'usuari <b>adults</b> ja existeix." \
 			--title "Creació de perfils d'usuari" \
 			2>/dev/null;
     		}
@@ -974,7 +982,7 @@ if [[ $resposta == *adults* ]] ; then
 				2>/dev/null ;
 		sudo -S apt-get install linkat-perfil-adults -y | \
 			zenity --progress \
-				--text "S'està instal·lant i configurant el perfil d'usuari adults. \nAixò pot trigar una estona.\nEspereu-vos..." \
+				--text "S'està instal·lant i configurant el perfil d'usuari <b>adults</b>. \nAixò pot trigar una estona.\nEspereu-vos..." \
 				--title "Creació de perfils d'usuari" \
 				--width=400 --no-cancel --auto-close --pulsate \
 				2>/dev/null;
@@ -983,14 +991,14 @@ if [[ $resposta == *adults* ]] ; then
     			# Mostrem missatge de confirmació de creació correcta de l'usuari
     			zenity --info \
 				--title "Creació de perfils d'usuari" \
-				--text "El perfil d'usuari adults s'ha instal·lat satisfactòriament."\
+				--text "El perfil d'usuari <b>adults</b> s'ha instal·lat satisfactòriament."\
 				2>/dev/null;
     			}
   		else #Si la creació d'usuari mostra algun error
     			{
     			# Mostrem error desconegut
     			zenity --error \
-				--text "S'ha produit un error en instal·lar el perfil d'usuari adults" \
+				--text "S'ha produit un error en instal·lar el perfil d'usuari <b>adults</b>" \
 				--title "Creació de perfils d'usuari" \
 				2>/dev/null;
     			}
@@ -1013,7 +1021,7 @@ fi;
 #Ocultació de l'usuari convidat a la pantalla d'inici de sessió
 zenity --question \
 	--title "Configuració de la pantalla d'inici de sessió" \
-	--text "Voleu ocultar l'usuari convidat a la pantalla d'inici de sessió?" \
+	--text "Voleu ocultar la <b>Sessió de convidat</b> a la pantalla d'inici de sessió?" \
 	--cancel-label="No" --ok-label="Sí" \
 	2>/dev/null;
 allowguest=$?; #Creem la variable de control per desar la resposta de la pregunta a l'usuari
@@ -1047,7 +1055,7 @@ case $allowguest in #Comprovem el valor de la resposta de l'usuari
 		# Mostrem el missatge de confirmació a l'usuari  
 		zenity --info \
 			--title "Configuració de la pantalla d'inici de sessió" \
-			--text "L'usuari convidat ha estat ocultat a la pantalla d'inici de sessió." \
+			--text "La <b>Sessió de convidat</b> ha estat ocultada a la pantalla d'inici de sessió." \
 			--ok-label="D'acord" \
 			2>/dev/null;
   		#
@@ -1132,7 +1140,7 @@ case $allowguest in #Comprovem el valor de la resposta de l'usuari
 		fi;
 		zenity --info \
 			--title "Configuració de la pantalla d'inici de sessió" \
-			--text "L'usuari convidat apareixerà  a la pantalla d'inici de sessió." \
+			--text "La <b>Sessió de convidat</b> apareixerà  a la pantalla d'inici de sessió." \
 			--ok-label="D'acord" \
 			2>/dev/null;
 	;;
@@ -1172,6 +1180,16 @@ homesetup=0
 while [ $usersetup == 0 ]
 do 
 {
+all_created=""
+if [[ $super_created == "super" ]] ; then all_created=$all_created" "$super_created ; fi;
+if [[ $prof_created == "prof" ]] ; then all_created=$all_created" "$prof_created ; fi;
+if [[ $argo_created == "argo" ]] ; then all_created=$all_created" "$argo_created ; fi;
+zenity --warning \
+		--title="Configuració de Navegadors Web" \
+		--text="Cal que inicieu sessió amb els usuaris <b>$all_created</b> abans d'establir la configuració dels navegadors.\nPodeu fer-ho ara i després tornar a aquest punt per continuar." \
+		--width=500 --height=150 \
+		--ok-label="D'acord" 2>/dev/null;
+all_created=""
 # Mostrem la llista d'usuaris
 usuari=$(NUM=$(cat /etc/passwd | cut -d: -f3) # > tmp/user
 MIN="1000"
