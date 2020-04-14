@@ -1,7 +1,7 @@
 #!/bin/bash
 #hideuserslist.sh
 #Script per automatitzar la ocultació de la llista de usuaris a la pantalla inicial de Linkat 
-#Copyright 2016 JBA
+# 2016 JBA
 #
 #
 clear
