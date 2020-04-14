@@ -1,7 +1,7 @@
 #!/bin/bash
 # renamehost.sh
 # Script d automatització del canvi de nom d'equip a Linkat
-# Copyright 2016 JBA
+# 2016 JBA
 #
 #
 # Comprovem que l'script s'executa com a root
