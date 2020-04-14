@@ -2,7 +2,7 @@
 #autologin.sh
 #Script per automatitzar la selecció d'inici de sessió automàtic a la Linkat lleugera 14.04
 #Versió 1.0
-#Copyright 2016 JBA
+# 2016 JBA
 #
 #
 #Mostrem la capçalera del programa
