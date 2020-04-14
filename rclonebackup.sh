@@ -5,7 +5,7 @@
 # Joan Borràs - Abril 2020 
 #
 #
-# Aquest script requereix la configuració prèvia del repositori remot mijançant rclone config per a l'usuari root.
+# Aquest script requereix la configuració prèvia del repositori remot mijançant rclone config per a l'usuari root
 # Aquest script pot ser cridat des de crontab per automatitzar la tasca de còpia demanera regular.
 #
 #
@@ -33,12 +33,16 @@ if ! test -f "$LOGSRCLONEFILE"; then sudo cat > $LOGSRCLONEFILE; fi; sudo chmod 
 # 
 # Data i hora de l'inici de copia que dona nom al subdirectori
 DATETIME=$(date +%F_%T)
-# Ruta del directori local a copiar
-LOCALPATH='/srv/exports/ '
+# Ruta del directori local a copiar (Cal modificar aquest valor amb el que desitgi l'usuari)
+LOCALPATH='/srv/exports/'
+# Ruta del repositori remot (Cal modificar aquest valor amb el que desitgi l'usuari)
+REMOTEREPO='GoogleDrive:/CopiaSeguretatServidor/'
 # Ruta del directori remot on es desa la copia
-REMOTEPATH='GoogleDrive:/CopiaSeguretatServidor/'$DATETIME
+REMOTEPATH=$REMOTEREPO$DATETIME
 # Comanda de rclone
 COMMAND='rclone sync '
+# Caracter deparador
+BLANK=' '
 # Opcions de copia
 # -P mostra el procés
 # -L ignora els enllaços
@@ -53,7 +57,7 @@ sudo echo '*********************************************************************
 sudo echo $DATETIME' --- Started --- "'$COMMAND$LOCALPATH$REMOTEPATH$FLAGS'"' >> $LOGSRCLONEFILE
 sudo echo '*********************************************************************************************' >> $LOGSRCLONEFILE
 # Procés de còpia de dades
-sudo $COMMAND$LOCALPATH$REMOTEPATH$FLAGS >> $LOGSRCLONEFILE
+sudo $COMMAND$LOCALPATH$BLANK$REMOTEPATH$FLAGS >> $LOGSRCLONEFILE
 # Creació del log de data i hora d'acabament
 sudo echo '*********************************************************************************************' >> $LOGSRCLONEFILE
 sudo echo $DATETIME' --- Finished --- "'$COMMAND$LOCALPATH$REMOTEPATH$FLAGS'"' >> $LOGSRCLONEFILE 
