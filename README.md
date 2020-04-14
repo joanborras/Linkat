@@ -1,18 +1,11 @@
 #################################################################################################
-#                                                                                
 #    Linkat - Recull de scripts i paquets d'instal·lació diversos per a Linkat   
-#                                                                                
 #################################################################################################
-
-
+#
 #################################################################################################
-##
 ## Benvinguda.deb  ----- Paquet instalable que mostra un missatge de benvinguda a l'inici de sessió d'usuari.
-##
 #################################################################################################
-##
 ## allowguest.sh  ----- Script per automatitzar la ocultació del usuari convidat a la pantalla inicial de Linkat 
-##
 #################################################################################################
 ##
 ## autologin.sh  ----  Script per automatitzar la selecció d'inici de sessió automàtic a la Linkat lleugera
