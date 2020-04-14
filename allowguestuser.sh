@@ -1,7 +1,7 @@
 #!/bin/bash
 #allowguestuser.sh
 #Script per automatitzar la ocultació del usuari convidat a la pantalla inicial de Linkat 
-#Copyright 2016 JBA
+# 2016 JBA
 #
 #
 clear
