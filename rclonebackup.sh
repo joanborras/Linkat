@@ -5,7 +5,8 @@
 # Joan Borràs - Abril 2020 
 #
 #
-# Aquest script requereix la configuració prèvia del repositori remot mijançant rclone config per a l'usuari root
+# Aquest script requereix la configuració prèvia del repositori remot mijançant rclone config per a l'usuari root.
+# Aquest script pot ser cridat des de crontab per automatitzar la tasca de còpia demanera regular.
 #
 #
 # Comprovem si  el script ja s'està executant
