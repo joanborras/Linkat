@@ -10,7 +10,7 @@ Paquet instalable que mostra un missatge de benvinguda a l'inici de sessió d'us
 ### allowguest.sh
 Script per automatitzar la ocultació del usuari convidat a la pantalla inicial de Linkat 
 ###
-#######################################################################################################
+######################################################################################################
 ### autologin.sh  
 Script per automatitzar la selecció d'inici de sessió automàtic a la Linkat lleugera
 ###
@@ -38,8 +38,8 @@ Script d'automatització de còpies amb rclone organitzades en directoris per da
 ### renamehost.deb
 Paquet d'automatització del canvi de nom d'equip a Linkat 	
 ###
-######################################################################################################
+#####################################################################################################
 ### renamehost.sh  
 Script d'automatització del canvi de nom d'equip a Linkat 	
 ###
-######################################################################################################
+#####################################################################################################
