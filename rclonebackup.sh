@@ -40,14 +40,14 @@ REMOTEREPO='GoogleDrive:/CopiaSeguretatServidor/'
 # Ruta del directori remot on es desa la copia
 REMOTEPATH=$REMOTEREPO$DATETIME
 # Comanda de rclone
-COMMAND='rclone sync '
+COMMAND='rclone sync'
 # Caracter deparador
-BLANK=' '
+SPACER=' '
 # Opcions de copia
 # -P mostra el procés
 # -L ignora els enllaços
 # --create-empty-src-dirs sincronitza els directoris buits
-FLAGS=' -P -L --create-empty-src-dirs'
+FLAGS='-P -L --create-empty-src-dirs'
 #--log-file=$LOGSRCLONEFILE'
 #
 #
@@ -57,7 +57,7 @@ sudo echo '*********************************************************************
 sudo echo $DATETIME' --- Started --- "'$COMMAND$LOCALPATH$REMOTEPATH$FLAGS'"' >> $LOGSRCLONEFILE
 sudo echo '*********************************************************************************************' >> $LOGSRCLONEFILE
 # Procés de còpia de dades
-sudo $COMMAND$LOCALPATH$BLANK$REMOTEPATH$FLAGS >> $LOGSRCLONEFILE
+sudo $COMMAND$SPACER$LOCALPATH$SPACER$REMOTEPATH$SPACER$FLAGS >> $LOGSRCLONEFILE
 # Creació del log de data i hora d'acabament
 sudo echo '*********************************************************************************************' >> $LOGSRCLONEFILE
 sudo echo $DATETIME' --- Finished --- "'$COMMAND$LOCALPATH$REMOTEPATH$FLAGS'"' >> $LOGSRCLONEFILE 
